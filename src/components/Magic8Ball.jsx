@@ -6,7 +6,8 @@ class Magic8Ball extends React.Component {
         super(props);
         this.state = {
             question: "",
-            answer: ''
+            answer: '',
+            shake: false
         }
     }
 
@@ -23,16 +24,24 @@ class Magic8Ball extends React.Component {
         this._fetchAnswer();
     }
 
+
     _fetchAnswer = async () => {
+        setTimeout(
+            this.setState({
+                shake: true
+            }), 3000
+        )
+        
         let params = encodeURIComponent(this.state.question);
         let uri = `https://8ball.delegator.com/magic/JSON/` + params;
         const response = await fetch(uri)
             .then(response => response.json());
-       
         this.setState({
             answer: response.magic.answer,
-            question: ''
+            question: '',
+            shake: false
         })
+       
         
     }
     
@@ -53,7 +62,7 @@ class Magic8Ball extends React.Component {
                 {/* <button onClick={this._fetchAnswer}>Ask the 8 Ball!</button> */}
                 <Visual 
                     answer={this.state.answer}
-                    shake={this.state.answer ==='' ? 'eball' : 'eball shake'}/>
+                    shaking={this.state.shake === true  ? 'eball' : 'eball shake'}/>
             </div>
         )
     }

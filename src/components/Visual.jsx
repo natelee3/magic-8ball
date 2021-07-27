@@ -1,12 +1,12 @@
 
 const Visual = (props) => {
-    const { shake, answer } = props;
+    const { shaking, answer } = props;
     return (
         <>
             <div className="shadow"></div>
 
             <div className="epos">
-                <div className={shake}>
+                <div className={shaking}>
                     <div className="egrad"></div>
                     <div className="ewin"></div>
                     <div className="triangle"></div>
